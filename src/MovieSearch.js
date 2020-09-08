@@ -41,7 +41,7 @@ class MovieSearch extends Component {
     e.preventDefault();
 
     axios
-      .get("http://www.omdbapi.com/?apikey=6138a57", {
+      .get('//www.omdbapi.com/?apikey=6138a57', {
         params: {
           s: this.state.search,
         },
