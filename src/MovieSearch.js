@@ -1,61 +1,60 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React, { Component } from "react";
+import axios from "axios";
 import movieSearch from "./CssFiles/movieSearch.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
+class MovieSearch extends Component {
+  constructor(props) {
+    super(props);
 
-class MovieSearch extends Component{
-    constructor(props){
-        super(props);
-        
-        this.getData = this.getData.bind(this);
-        this.searchMovie = this.searchMovie.bind(this);
-        this.selectMovie = this.selectMovie.bind(this);
-        this.removeMovie = this.removeMovie.bind(this);
+    this.getData = this.getData.bind(this);
+    this.searchMovie = this.searchMovie.bind(this);
+    this.selectMovie = this.selectMovie.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
 
-        this.state = {
-            data: [],
-            search: '',
-            selectedMovies: [],
-        }
-    }
-    searchMovie(e) {
-        this.setState({ search: e.target.value.trim() + "*" });
-      }
-      selectMovie(movie) {
-        this.setState((state, props) => {
-          state.selectedMovies.push(movie);
-          return { selectedMovies: state.selectedMovies };
-        });
-      }
-      removeMovie(movie) {
-        this.setState({
-          selectedMovies: this.state.selectedMovies.filter(
-            (item) => item.imdbID !== movie.imdbID
-          ),
-        });
-      }
+    this.state = {
+      data: [],
+      search: "",
+      selectedMovies: [],
+    };
+  }
+  searchMovie(e) {
+    this.setState({ search: e.target.value.trim() + "*" });
+  }
+  selectMovie(movie) {
+    this.setState((state, props) => {
+      state.selectedMovies.push(movie);
+      return { selectedMovies: state.selectedMovies };
+    });
+  }
+  removeMovie(movie) {
+    this.setState({
+      selectedMovies: this.state.selectedMovies.filter(
+        (item) => item.imdbID !== movie.imdbID
+      ),
+    });
+  }
 
-    getData(e){
-        e.preventDefault(); 
+  getData(e) {
+    e.preventDefault();
 
-        axios
-        .get("http://www.omdbapi.com/?apikey=6138a57",{
-        params:{
-            s:this.state.search,
+    axios
+      .get("http://www.omdbapi.com/?apikey=6138a57", {
+        params: {
+          s: this.state.search,
         },
-        })
-        .then((res) => {
-            const data = res.data.Search;
-            this.setState({ data });
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
-    render(){
-        const datas = [];
+      })
+      .then((res) => {
+        const data = res.data.Search;
+        this.setState({ data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  render() {
+    const datas = [];
     const data = this.state.data;
 
     if (data === undefined) {
@@ -73,8 +72,7 @@ class MovieSearch extends Component{
             isDisabled = true;
           }
           if (this.state.selectedMovies.length === 5) {
-            return <div>thanks</div>
-            
+            return <div>thanks</div>;
           }
         }
         if (data[i].Title.length >= 30) {
@@ -87,7 +85,7 @@ class MovieSearch extends Component{
                   data[i].Year +
                   ") "}
                 <button
-                  className='button-nominate-remove'
+                  className="button-nominate-remove"
                   onClick={() => this.selectMovie(data[i])}
                   disabled={isDisabled}
                 >
@@ -102,7 +100,7 @@ class MovieSearch extends Component{
               <li>
                 {data[i].Title.substr(0, 30) + "(" + data[i].Year + ") "}
                 <button
-                  className='button-nominate-remove'
+                  className="button-nominate-remove"
                   onClick={() => this.selectMovie(data[i])}
                   disabled={isDisabled}
                 >
@@ -127,7 +125,7 @@ class MovieSearch extends Component{
                 this.state.selectedMovies[i].Year +
                 ") "}
               <button
-                className='button-nominate-remove'
+                className="button-nominate-remove"
                 onClick={() => this.removeMovie(this.state.selectedMovies[i])}
                 selectedMovies={this.state.selectedMovies}
               >
@@ -145,7 +143,7 @@ class MovieSearch extends Component{
                 this.state.selectedMovies[i].Year +
                 ") "}
               <button
-                className='button-nominate-remove'
+                className="button-nominate-remove"
                 onClick={() => this.removeMovie(this.state.selectedMovies[i])}
                 selectedMovies={this.state.selectedMovies}
               >
@@ -156,20 +154,23 @@ class MovieSearch extends Component{
         );
       }
     }
-        return(
-            <div className='father-content'>
-                <div className='right-border'></div>
-                <div className='main-content'>
-                    <div className='title'>
-                        <h1>The Shoppies</h1>
-                    </div>
-                    
-               <form
+    return (
+        <div className="father-content">
+        <div className="right-border"></div>
+
+        <div className="main-content">
+          <div className="title">
+            <h1>The Shoppies</h1>
+          </div>
+          <div className="search-and-subtitle">
+            <div className="movies-table">
+              <form
                 autoComplete="off"
                 onKeyUp={this.getData}
                 onSubmit={(e) => e.preventDefault()}
               >
                 <label>
+                  <FontAwesomeIcon icon={faSearch} />
                   <input
                     className="input-search"
                     type="text"
@@ -179,14 +180,18 @@ class MovieSearch extends Component{
                   />
                 </label>
               </form>
-              <div className='datas'>{datas}</div>
-              <div className='nominated-movies'>
-                  <h3>Nominations:</h3>
-                <div className='nominations'>{nominate}</div>
-              </div>
-              </div>
+              <div className="datas">{datas}</div>
             </div>
-        )
-    }
+            <div className="nominated-movies">
+              <h3>Nominations:</h3>
+              <div className="nominations">{nominate}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="left-border"></div>
+      </div>
+    );
+  }
 }
 export default MovieSearch;
