@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import movieSearch from "./CssFiles/movieSearch.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
 
 class MovieSearch extends Component{
     constructor(props){
@@ -155,7 +158,12 @@ class MovieSearch extends Component{
     }
         return(
             <div className='father-content'>
+                <div className='right-border'></div>
                 <div className='main-content'>
+                    <div className='title'>
+                        <h1>The Shoppies</h1>
+                    </div>
+                    
                <form
                 autoComplete="off"
                 onKeyUp={this.getData}
