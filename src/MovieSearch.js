@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import movieSearch from "./CssFiles/movieSearch.scss";
 
 class MovieSearch extends Component{
     constructor(props){
@@ -153,7 +154,8 @@ class MovieSearch extends Component{
       }
     }
         return(
-            <div>
+            <div className='father-content'>
+                <div className='main-content'>
                <form
                 autoComplete="off"
                 onKeyUp={this.getData}
@@ -173,6 +175,7 @@ class MovieSearch extends Component{
               <div className='nominated-movies'>
                   <h3>Nominations:</h3>
                 <div className='nominations'>{nominate}</div>
+              </div>
               </div>
             </div>
         )
