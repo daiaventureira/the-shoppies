@@ -8,6 +8,7 @@ class MovieSearch extends Component{
         this.getData = this.getData.bind(this);
         this.searchMovie = this.searchMovie.bind(this);
         this.selectMovie = this.selectMovie.bind(this);
+        this.removeMovie = this.removeMovie.bind(this);
 
         this.state = {
             data: [],
@@ -22,6 +23,13 @@ class MovieSearch extends Component{
         this.setState((state, props) => {
           state.selectedMovies.push(movie);
           return { selectedMovies: state.selectedMovies };
+        });
+      }
+      removeMovie(movie) {
+        this.setState({
+          selectedMovies: this.state.selectedMovies.filter(
+            (item) => item.imdbID !== movie.imdbID
+          ),
         });
       }
 
@@ -103,6 +111,47 @@ class MovieSearch extends Component{
       }
     }
 
+    const nominate = [];
+    for (let i = 0; i < this.state.selectedMovies.length; i++) {
+      if (this.state.selectedMovies[i].Title.length >= 30) {
+        nominate.push(
+          <ul>
+            <li>
+              {this.state.selectedMovies[i].Title.substr(0, 30) +
+                "..." +
+                "(" +
+                this.state.selectedMovies[i].Year +
+                ") "}
+              <button
+                className='button-nominate-remove'
+                onClick={() => this.removeMovie(this.state.selectedMovies[i])}
+                selectedMovies={this.state.selectedMovies}
+              >
+                Remove
+              </button>
+            </li>
+          </ul>
+        );
+      } else {
+        nominate.push(
+          <ul>
+            <li>
+              {this.state.selectedMovies[i].Title.substr(0, 30) +
+                "(" +
+                this.state.selectedMovies[i].Year +
+                ") "}
+              <button
+                className='button-nominate-remove'
+                onClick={() => this.removeMovie(this.state.selectedMovies[i])}
+                selectedMovies={this.state.selectedMovies}
+              >
+                Remove
+              </button>
+            </li>
+          </ul>
+        );
+      }
+    }
         return(
             <div>
                <form
@@ -121,6 +170,10 @@ class MovieSearch extends Component{
                 </label>
               </form>
               <div className='datas'>{datas}</div>
+              <div className='nominated-movies'>
+                  <h3>Nominations:</h3>
+                <div className='nominations'>{nominate}</div>
+              </div>
             </div>
         )
     }
