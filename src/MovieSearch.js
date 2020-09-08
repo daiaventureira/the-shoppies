@@ -3,6 +3,7 @@ import axios from "axios";
 import movieSearch from "./CssFiles/movieSearch.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Banner from "./Banner";
 
 class MovieSearch extends Component {
   constructor(props) {
@@ -58,7 +59,7 @@ class MovieSearch extends Component {
     const data = this.state.data;
 
     if (data === undefined) {
-      datas.push(<div>no results found</div>);
+      datas.push(<div key={datas}>no results found</div>);
     } else {
       let x = data.length;
       if (x > 5) {
@@ -72,7 +73,7 @@ class MovieSearch extends Component {
             isDisabled = true;
           }
           if (this.state.selectedMovies.length === 5) {
-            return <div>thanks</div>;
+            return <Banner />;
           }
         }
         if (data[i].Title.length >= 30) {
@@ -96,7 +97,7 @@ class MovieSearch extends Component {
           );
         } else {
           datas.push(
-            <ul>
+            <ul key={i}>
               <li>
                 {data[i].Title.substr(0, 30) + "(" + data[i].Year + ") "}
                 <button
@@ -136,7 +137,7 @@ class MovieSearch extends Component {
         );
       } else {
         nominate.push(
-          <ul>
+          <ul key={nominate}>
             <li>
               {this.state.selectedMovies[i].Title.substr(0, 30) +
                 "(" +
@@ -155,7 +156,7 @@ class MovieSearch extends Component {
       }
     }
     return (
-        <div className="father-content">
+      <div className="father-content">
         <div className="right-border"></div>
 
         <div className="main-content">
