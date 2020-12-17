@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Banner from "./Banner";
 
+const api_key = process.env.REACT_APP_API_KEY;
+
 class MovieSearch extends Component {
   constructor(props) {
     super(props);
@@ -39,9 +41,8 @@ class MovieSearch extends Component {
 
   getData(e) {
     e.preventDefault();
-
     axios
-      .get("//www.omdbapi.com/?apikey=process.env.REACT_APP_WEATHER_API_KEY", {
+      .get(`//www.omdbapi.com/?apikey=${api_key}`, {
         params: {
           s: this.state.search,
         },
