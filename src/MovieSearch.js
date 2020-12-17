@@ -41,7 +41,7 @@ class MovieSearch extends Component {
     e.preventDefault();
 
     axios
-      .get("//www.omdbapi.com/?apikey=6138a57", {
+      .get("//www.omdbapi.com/?apikey=process.env.REACT_APP_WEATHER_API_KEY", {
         params: {
           s: this.state.search,
         },
