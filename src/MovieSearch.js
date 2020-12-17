@@ -41,7 +41,7 @@ class MovieSearch extends Component {
     e.preventDefault();
 
     axios
-      .get('//www.omdbapi.com/?apikey=6138a57', {
+      .get("//www.omdbapi.com/?apikey=6138a57", {
         params: {
           s: this.state.search,
         },
@@ -57,7 +57,6 @@ class MovieSearch extends Component {
   render() {
     const datas = [];
     const data = this.state.data;
-
     if (data === undefined) {
       datas.push(<div key={datas}>no results found</div>);
     } else {
@@ -76,6 +75,7 @@ class MovieSearch extends Component {
             return <Banner />;
           }
         }
+
         if (data[i].Title.length >= 30) {
           datas.push(
             <ul>
