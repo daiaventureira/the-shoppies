@@ -177,7 +177,7 @@ class MovieSearch extends Component {
                     className="input-search"
                     type="text"
                     name="movie"
-                    placeholder=" type the name of the movie"
+                    placeholder="type the movie name"
                     onChange={this.searchMovie}
                   />
                 </label>
