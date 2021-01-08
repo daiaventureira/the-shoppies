@@ -1,6 +1,6 @@
 # The Shoppies
 
-In this web app you can search for movies from IMBD API and nominate up to 5 movies. 
+In this web app you can search for movies and save up to 5 of your favorites movies. 
 
 ## Functionalities
   
